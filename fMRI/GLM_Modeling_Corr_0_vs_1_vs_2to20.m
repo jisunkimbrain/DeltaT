@@ -13,7 +13,6 @@
 
 % With RT modeled as Parametric Modulators
 
-
 %% Defining Parameters
 clear all;
 clc;
