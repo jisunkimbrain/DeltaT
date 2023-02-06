@@ -6,18 +6,13 @@
 %% Directory Set-up
 clear all; clc;
 
-sbj_dir = 'E:\Delta_T_Analysis\Behavioral\Subject_data_final';
-sbj_dir_RT= 'E:\Delta_T_Analysis\Behavioral\Subject_data_final_RT';
-ori_dir = 'D:\Delta_T_Analysis_Past\GLM_Nov\Onset_input';
-% ori_dir = 'E:\Delta_T_Analysis\GLM_Nov\Onset_input';
+% Set-up directory for:
+% sbj_dir
+% sbj_dir_rt
+% ori_dir
+% save_dir
 
-% Defining subjects
-% load('E:\Delta_T_Analysis\GLM_Nov\Onset_input\sbj_run_list_April.mat');
-load('E:\Delta_T_Analysis\Retrieval_only\sbj_run_list_Jan.mat');
-
-save_dir = 'E:\Delta_T_Analysis\Behavioral\Sim_Consec_Seq';
-% save_dir = 'E:\Delta_T_Analysis\Behavioral\Sim_Seq';
-% ~mkdir(save_dir);
+% Define subjects by loading sbj_list file
 
 %% Accuracy: 0 vs. 1 vs. 2~20
 
@@ -170,3 +165,97 @@ fprintf(['RT: TD0 vs. TD1: t(23) = %0.3f p = %0.3f \n'], stats.tstat, p2);
 [h3,p3,ci,stats] = ttest(pre_data(:,2), pre_data(:,3));
 fprintf(['RT: TD0 vs. TD1: t(23) = %0.3f p = %0.3f \n'], stats.tstat, p3);
             
+%% Plot results 
+
+%% Accuracy
+
+% load accuracy
+load([save_dir '\TD_0_acc.mat']);
+load([save_dir '\TD_1_acc.mat']);
+load([save_dir '\TD_seq_acc.mat']);
+
+% plot data
+data = {TD_0_acc TD_1_acc TD_seq_acc};
+[avg,err] = jh_mean_err(2,data);
+
+labels = categorical({'TD=0', 'TD=1', 'TD=2~20'});
+labels = reordercats(labels,string(labels));
+y = avg;
+figure;
+ylim([0 1]);
+resultsbar = bar(labels,y,'FaceColor','flat', 'BarWidth', 0.7);
+ax = gca;
+
+% ylabel('Accuracy', 'FontWeight', 'bold');
+
+set(gca,'FontSize',18, 'linewidth',2, 'FontWeight','bold', 'box','off');
+ax.XAxis.FontSize=20;
+ax.XAxis.FontWeight='bold';
+
+ax.XAxis.TickLength = [0 0];
+
+%     ax.Children(2).CData(3,:) = [0.7 0.7 0.7];
+resultsbar.CData(1,:) = [1 0.8 0.8];
+resultsbar.CData(2,:) = [0.8 0.9 0.8];
+resultsbar.CData(3,:) = [0.8 0.9 1];
+hold on
+bar(y(1:3), 'FaceAlpha',0,'EdgeColor',[0.3 0.5 0.6],'LineWidth',4, 'BarWidth', 0.7);
+bar(y(1:2),'FaceAlpha',0,'EdgeColor',[0.3 0.6 0.3],'LineWidth',4, 'BarWidth', 0.7);
+bar(y(1),'FaceAlpha',0,'EdgeColor',[0.8 0.1 0],'LineWidth',4, 'BarWidth', 0.7);
+
+
+for i=1:3
+    hold on
+    plot([i i],[avg(i)-err(i) avg(i)+err(i)], 'Color', 'k', 'linewidth', 2);
+end
+
+
+hold on
+yline(0.33,'k--','linewidth',2);
+
+saveas(gcf, ['E:\Delta_T_Analysis\Behavioral\Figs_Jan2023\TDcondition_acc.png']);
+
+
+%% RT
+
+% load response time
+load([save_dir '\mean_TD_0_rt.mat']);
+load([save_dir '\mean_TD_1_rt.mat']);
+load([save_dir '\mean_TD_seq_rt.mat']);
+
+% plot data
+data = {mean_TD_0_rt mean_TD_1_rt mean_TD_seq_rt};
+[avg,err] = jh_mean_err(2,data);
+
+labels = categorical({'TD=0', 'TD=1', 'TD=2~20'});
+labels = reordercats(labels,string(labels));
+y = avg;
+figure;
+resultsbar = bar(labels,y,'FaceColor','flat', 'BarWidth', 0.7);
+ax = gca;
+ax.XAxis.FontSize=15;
+ax.XAxis.FontWeight='bold';
+% ylabel('Response Time (ms)', 'FontWeight', 'bold');
+ax = gca;
+set(gca,'FontSize',18, 'linewidth',2, 'FontWeight','bold', 'box','off');
+ax.XAxis.FontSize=20; ax.XAxis.FontWeight='bold';
+ax.XAxis.TickLength = [0 0];
+
+resultsbar.CData(1,:) = [1 0.8 0.8];
+resultsbar.CData(2,:) = [0.8 0.9 0.8];
+resultsbar.CData(3,:) = [0.8 0.9 1];
+hold on
+bar(y(1:3), 'FaceAlpha',0,'EdgeColor',[0.3 0.5 0.6],'LineWidth',4, 'BarWidth', 0.7);
+bar(y(1:2),'FaceAlpha',0,'EdgeColor',[0.3 0.6 0.3],'LineWidth',4, 'BarWidth', 0.7);
+bar(y(1),'FaceAlpha',0,'EdgeColor',[0.8 0.1 0],'LineWidth',4, 'BarWidth', 0.7);
+hold on
+
+ylim([0 3000]);
+
+
+for i=1:3
+    hold on
+    plot([i i],[avg(i)-err(i) avg(i)+err(i)], 'Color', 'k', 'linewidth', 2);
+end
+
+saveas(gcf, ['E:\Delta_T_Analysis\Behavioral\Figs_Jan2023\TDcondition_RT.png']);
