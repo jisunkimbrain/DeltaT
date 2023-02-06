@@ -176,7 +176,7 @@ load([save_dir '\TD_seq_acc.mat']);
 
 % plot data
 data = {TD_0_acc TD_1_acc TD_seq_acc};
-[avg,err] = jh_mean_err(2,data);
+[avg,err] = jh_mean_err(1,data);
 
 labels = categorical({'TD=0', 'TD=1', 'TD=2~20'});
 labels = reordercats(labels,string(labels));
@@ -225,7 +225,7 @@ load([save_dir '\mean_TD_seq_rt.mat']);
 
 % plot data
 data = {mean_TD_0_rt mean_TD_1_rt mean_TD_seq_rt};
-[avg,err] = jh_mean_err(2,data);
+[avg,err] = jh_mean_err(1,data);
 
 labels = categorical({'TD=0', 'TD=1', 'TD=2~20'});
 labels = reordercats(labels,string(labels));
