@@ -1,10 +1,7 @@
-% Re-calculate SOT based on new starting point
-
-% Beginning of Retrieval instruction 
-
-% Feb, 2022 & May, 2022
-
-% Added: Aug, 2022
+% DeltaT task
+% fMRI experiment
+% Create regressor/onset files
+% Ji Sun Kim
 
 %% Directory set-up
 
