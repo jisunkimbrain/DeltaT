@@ -309,26 +309,15 @@ for roi_i = 1:numel(roi)
     roi{roi_i}.noise_ceiling(1,2) = mean(lower_bound_i);
 end
 
-%% Plot results
 
-for roi_i = 1:numel(roi_name)
+function XYZ = Combine_Bilateral_ROI_coordinates(L_roi, R_roi)
 
-    figure;
-     
-    y = [roi{roi_i}.bootmean_0_1 roi{roi_i}.bootmean_1_2to20 roi{roi_i}.bootmean_0_2to20];
-    e = [roi{roi_i}.bootste_0_1 roi{roi_i}.bootste_1_2to20 roi{roi_i}.bootste_0_2to20];
-    p = [roi{roi_i}.bootP_0_1 roi{roi_i}.bootP_1_2to20 roi{roi_i}.bootP_0_2to20];
-
-    bar_wani_2016(y, e, .8, 'errbar_width', 0, 'ast', p, 'use_samefig', ...
-        'ylim', [-.6 1]);
-    patch(get(gca, 'xlim'), roi{roi_i}.noise_ceiling, [.7 .7 .7]);
-    title(roi_name{roi_i}, 'FontSize', 15);
-    ylabel('correlation (Kendall''s tau a)', 'FontSize', 15);
-    xticklabels(model_name);
-    ylim([-1 1]);
-
-    saveas(gcf, [results_dir '\Stats\' roi_name{roi_i} '.bmp']);
-
-    close all;
+L = spm_read_vols(spm_vol(L_roi),1);
+R = spm_read_vols(spm_vol(R_roi),1);
+L_indx = find(L>0);
+R_indx = find(R>0);
+B_indx = [L_indx; R_indx];
+[x,y,z] = ind2sub(size(L),B_indx);
+XYZ = [x y z]';
 
 end
