@@ -4,7 +4,7 @@
 Hello!
 This repository contains codes used to collect data & perform analyses for the following paper:
 
-[Kim, J.S., Lee, S.A. (2022) Hippocampal orchestration of associative and sequential memory networks for episodic retrieval](https://drive.google.com/file/d/1eP4APrUKljEK1VQNjqVDwKhwZt8aEMkF/view?usp=sharing)
+Kim, J. S., Lee, S. A. (2023) Hippocampal orchestration of associative and sequential memory networks for episodic retrieval.
 
 All scripts are written by J.S. Kim
 
