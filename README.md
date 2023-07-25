@@ -20,6 +20,7 @@ The scripts here are based on Matlab r2021b.
 - `fMRI_DeltaT_GenerateStimSets.m`
 - `fMRI_DeltaT_TaskPlayer.m`
 - `fMRI_DeltaT_Initializer.m`
+- 'DeltaT_GLM_design_matrix.png'
 
 ## BHV
 
