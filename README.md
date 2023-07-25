@@ -8,7 +8,7 @@ This repository contains codes used to collect data & perform analyses for the f
 
 All scripts are written by J.S. Kim
 
-Please contact me through kimjisun@snu.ac.kr if you have any questions about the codes
+Please contact me at kimjisun@snu.ac.kr if you have any questions about the codes
 
 The scripts here are based on Matlab r2021b.
 
